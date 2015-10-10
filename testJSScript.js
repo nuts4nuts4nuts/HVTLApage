@@ -2,6 +2,7 @@ var canvas = document.getElementById("mainCanvas");
 var context = canvas.getContext("2d");
 context.fillStyle = "#FF0000";
 context.fillRect(0, 0, 150, 75);
+alert("What is happening"); 
 
 // When the window is resized we want to
 //resize the canvas
@@ -10,7 +11,6 @@ $(window).resize(function() {
 
     canvas.width *= 0.5;
     canvas.height *= 0.5;
-    alert("What is happening");
 
     var img = new Image();
 
