@@ -25,7 +25,7 @@
 
 	function setEmissions(distance, mpg, object) {
 		emissions = calcEmissions(distance, mpg);
-		object.html(emissions + " lbs of CO2");
+		object.html(emissions.toPrecision(3) + " lbs of CO2");
 	}
 
 	function calcEmissions(d, mpg) {
