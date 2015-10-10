@@ -10,6 +10,7 @@ $(window).resize(function() {
 
     canvas.width *= 0.5;
     canvas.height *= 0.5;
+    alert("What is happening");
 
     var img = new Image();
 
