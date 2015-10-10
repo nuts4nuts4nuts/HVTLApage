@@ -1,17 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Lawson's Angels Page</title>
-  </head>
+<head>
 
-  <body>
-    <canvas id="mainCanvas" width="300" height="400"
-	    style="border:1% solid #c3c3c3;">
-      Your browser does not seem to support canvas!
-    </canvas>
-    <script src="jquery-1.11.3.min.js"></script>
-    <script src="testJSScript.js"></script>
-  </body>
+    <title>Lawson's Angels Page</title>
+
+	<!-- Include meta tag to ensure proper rendering and touch zooming -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Include jQuery Mobile stylesheets -->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+	<!-- Include the jQuery library -->
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+	<!-- Include the jQuery Mobile library -->
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+	<script>
+	function setEmissionsEvent() {
+		var distance = $(".distanceSlider").val();
+		var mpg = $(".mpgSlider").val();
+		setEmissions(distance, mpg, $("#emissions"));
+	}
+
+	function setEmissions(distance, mpg, object) {
+		emissions = calcEmissions(distance, mpg);
+		object.html(emissions + " lbs of CO2");
+	}
+
+	function calcEmissions(d, mpg) {
+		return (d / mpg) * 19.64;
+	}
+
+	$(document).ready(function(){
+		$(".distanceSlider").change(setEmissionsEvent);
+		$(".mpgSlider").change(setEmissionsEvent);
+	})
+	</script>
+
+</head> 
+
+<body>
+
+	<p>CO2 Emissions: <div id="emissions">0 lbs of CO2</div></p>
+
+	<form>
+		<p>Distance (km): </p>
+		<input class="distanceSlider" type="range" min="0" max="100">
+		<p>Miles per Gallon:</p>
+		<input class="mpgSlider" type="range" min="0" max="100">
+	</form>
+
+	<canvas id="mainCanvas" width="300" height="400" style="border:1% solid #c3c3c3;">
+		Your browser does not seem to support canvas!
+	</canvas>
+</body>
 
 
 </html>
