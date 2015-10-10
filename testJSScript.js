@@ -1,6 +1,4 @@
-var string = "Hello world from JS"
-
-function showAlert()
-{
-    alert('You triggered an alert');
-}
+var canvas = document.getElementById("mainCanvas");
+var context = canvas.getContext("2d");
+context.fillStyle = "#FF0000";
+context.fillRect(0, 0, 150, 75);
