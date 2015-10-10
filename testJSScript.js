@@ -6,16 +6,18 @@ alert("What is happening");
 
 // When the window is resized we want to
 //resize the canvas
-$(window).resize(function() {
-    var data = canvas.toDataURL();
+$(document).ready(function() {
+    $(window).resize(function() {
+	var data = canvas.toDataURL();
 
-    canvas.width *= 0.5;
-    canvas.height *= 0.5;
+	canvas.width *= 0.5;
+	canvas.height *= 0.5;
 
-    var img = new Image();
+	var img = new Image();
 
-    img.onload=function(){
-	context.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.wdith, canvas.height);};
-    
-    img.src = data;
+	img.onload=function(){
+	    context.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.wdith, canvas.height);};
+
+	img.src = data;
+    });
 });
