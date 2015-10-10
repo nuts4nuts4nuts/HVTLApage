@@ -10,6 +10,36 @@
       Your browser does not seem to support canvas!
     </canvas>
     <script src="jquery-1.11.3.min.js"></script>
+    <script async defer
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuCLmAFESOmLJ0IRWBaXJ-GH_0Deh1t9k&callback=initMap"></script>
+    <script>
+      var startLocation = window.prompt("Start Location", "Boston");
+      var destination = window.prompt("Destination", "San Francisco");
+      var service = google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+                {
+                       origins: [startLocation],
+                       destinations: [destination],
+                       travelMode: google.maps.TravelMode.DRIVING,
+                       transitOptions: TransitOptions,
+                       unitSystem: UnitSystem,
+                       durationInTraffic: Boolean,
+                       avoidHighways: Boolean,
+                       avoidTolls: Boolean
+		        }, callback);
+        )
+
+      function callback(response, status)
+      {
+         if (status == google.maps.DistanceMatrixStatus.OK)
+         {
+            var results = response.rows[0].elements;
+            var element = results[0];
+            var distance = element.distance.text;
+            var duration = element.duration.text;
+         }
+      }
+    </script>
     <script src="testJSScript.js"></script>
   </body>
 
