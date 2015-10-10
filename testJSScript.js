@@ -8,7 +8,6 @@ alert("What is happening");
 //resize the canvas
 $(document).ready(function() {
     $(window).resize(function() {
-	alert("The window is resizing"); 
 	var data = canvas.toDataURL();
 
 	canvas.width *= 0.5;
