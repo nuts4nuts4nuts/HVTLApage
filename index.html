@@ -36,40 +36,47 @@
 		return (d / mpg) * 19.64;
 	}
 
-    function resolveGoogleRespons(response, status)
-    {
-		  if (status == google.maps.DistanceMatrixStatus.OK)
-		  {
-			  var results = response.rows[0].elements;
-			  var element = results[0];
-			  var distance = element.distance.value;
-			  var duration = element.duration.text;
-			  $(".distanceSlider").val(distance / 1000);
-		  }
-      }
 
-	function getDistance(start, destination, callback)
-	{
+	function getDistance()
+    {
+	    alert("In Get Distance");
 		// If we don't use new here, service is undefined, and that's not good.
 		var service = new google.maps.DistanceMatrixService();
 		service.getDistanceMatrix(
 			{
-				'origins': [startLocation],
-				'destinations': [destination],
+			    'origins': $(".origin").val(),
+				'destinations': $(".destination").val(),
 				'travelMode': google.maps.TravelMode.DRIVING,
 				'durationInTraffic': false,
 				'avoidHighways': false,
 				'avoidTolls': false
-			}, callback);
+			}, callback(response, status));
+	}
+
+
+	function callback(response, status) {
+	    alert("in callback");
+	    if (status == google.maps.DistanceMatrixStatus.OK) {
+	        var results = response.rows[0].elements;
+	        var element = results[0];
+	        var distance = element.distance.value;
+	        var duration = element.duration.text;
+	        $(".distanceSlider").val(distance / 1000);
+	    }
 	}
 
 	$(document).ready(function(){
 		$(".distanceSlider").change(setEmissionsEvent);
 		$(".mpgSlider").change(setEmissionsEvent);
-		setEmissionsEvent();
-		var startLocation = window.prompt("Start Location", "8320 Tomlinson Ave Bethesda, MD 20817");
-		var destination = window.prompt("Destination", "7515 Colshire Drive Mc Lean, VA 22102");
+		$(".origin").val("8320 Tomlinson Ave Bethesda, MD 20817");
+		$(".destination").val("7515 Colshire Drive Mc Lean, VA 22102");
 
+		setEmissionsEvent();
+
+		$(".calculate").click(function () {
+		    alert("Calc clicked");
+		    getDistance();
+		});
 
         $("#canvasDraw").click(function(){
 			var sizedWindowWidth = $(window).width() / 4;
@@ -106,6 +113,10 @@
 <body>
 <div data-role="page">
 	<div data-role="main" class="ui-content">
+
+    Origin: <input class="origin" type="text" name="start"><br>
+    Destination: <input class="destination" type="text" name="end"><br>
+    <input class="calculate" type="button" value="Calulate Distance">
 
 	<p>CO2 Emissions: </p>
 	<p id="emissions">0 lbs of CO2</p>
