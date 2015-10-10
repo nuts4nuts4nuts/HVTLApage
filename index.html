@@ -44,7 +44,10 @@
 	        var element = results[0];
 	        var distance = element.distance.value;
 	        var duration = element.duration.text;
+
 	        $(".distanceSlider").val(distance / 1000);
+	        
+	        setEmissions($(".distanceSlider").val(), $(".mpgSlider").val(), $("#emissions"));
 	    }
 	}
 
@@ -69,6 +72,7 @@
                     'avoidHighways': false,
                     'avoidTolls': false
                 }, callback);
+		  
 		});
 
         $("#canvasDraw").click(function(){
