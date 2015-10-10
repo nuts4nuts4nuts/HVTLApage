@@ -35,7 +35,35 @@
 	$(document).ready(function(){
 		$(".distanceSlider").change(setEmissionsEvent);
 		$(".mpgSlider").change(setEmissionsEvent);
-	})
+
+        $("#canvasDraw").click(function(){
+			var sizedWindowWidth = $(window).width() / 4;
+
+			$("#canvas").width(sizedWindowWidth);
+			$("#canvas").height(sizedWindowWidth);
+ 
+            var canvas = $("#canvas").get(0);
+ 
+            if(canvas)
+            {
+                var canvasContext = canvas.getContext('2d');
+ 
+                if(canvasContext)
+                {
+                    canvasContext.canvas.width  = sizedWindowWidth;
+                    canvasContext.canvas.height = sizedWindowWidth;
+ 
+                    canvasContext.font = "bold 14px serif";
+                    canvasContext.fillText("Canvas is supported", 10, 20);
+                    canvasContext.fillStyle = "#ff0000";
+                    canvasContext.font = "italic 14px sans-serif";
+                    canvasContext.fillText("Hello Canvas", 30, 40);
+                    canvasContext.fillStyle = "#00ff00";
+                    canvasContext.fillRect(40, 50, 70, 20);
+                }
+            }
+			});
+	});
 	</script>
 
 </head> 
@@ -44,7 +72,8 @@
 <div data-role="page">
 	<div data-role="main" class="ui-content">
 
-	<p>CO2 Emissions: <div id="emissions">0 lbs of CO2</div></p>
+	<p>CO2 Emissions: </p>
+	<p id="emissions">0 lbs of CO2</p>
 
 	<form>
 		<p>Distance (km): </p>
@@ -53,9 +82,13 @@
 		<input class="mpgSlider" type="range" min="0" max="100">
 	</form>
 
-	<canvas id="mainCanvas" width="300" height="400" style="border:1% solid #c3c3c3;">
+	<canvas id="canvas" width="300" height="400" style="border:1% solid #c3c3c3;">
 		Your browser does not seem to support canvas!
 	</canvas>
+
+	<form>
+		<input type="button" id="canvasDraw" value="Draw Canvas">
+	</form>
 	
 	</div>
 </div>
