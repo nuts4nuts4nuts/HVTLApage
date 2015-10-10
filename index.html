@@ -37,25 +37,8 @@
 	}
 
 
-	function getDistance()
-    {
-	    alert("In Get Distance");
-		// If we don't use new here, service is undefined, and that's not good.
-		var service = new google.maps.DistanceMatrixService();
-		service.getDistanceMatrix(
-			{
-			    'origins': $(".origin").val(),
-				'destinations': $(".destination").val(),
-				'travelMode': google.maps.TravelMode.DRIVING,
-				'durationInTraffic': false,
-				'avoidHighways': false,
-				'avoidTolls': false
-			}, callback(response, status));
-	}
-
 
 	function callback(response, status) {
-	    alert("in callback");
 	    if (status == google.maps.DistanceMatrixStatus.OK) {
 	        var results = response.rows[0].elements;
 	        var element = results[0];
@@ -74,8 +57,18 @@
 		setEmissionsEvent();
 
 		$(".calculate").click(function () {
-		    alert("Calc clicked");
-		    getDistance();
+		    var service = new google.maps.DistanceMatrixService();
+		    var startLocation = $(".origin").val();
+		    var destination = $(".destination").val();
+		    service.getDistanceMatrix(
+                {
+                    'origins': [startLocation],
+                    'destinations': [destination],
+                    'travelMode': google.maps.TravelMode.DRIVING,
+                    'durationInTraffic': false,
+                    'avoidHighways': false,
+                    'avoidTolls': false
+                }, callback);
 		});
 
         $("#canvasDraw").click(function(){
