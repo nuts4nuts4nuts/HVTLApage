@@ -75,6 +75,7 @@
 	$(document).ready(function(){
 		$(".distanceSlider").change(setEmissionsEvent);
 		$(".mpgSlider").change(setEmissionsEvent);
+		setEmissionsEvent();
 
         $("#canvasDraw").click(function(){
 			var sizedWindowWidth = $(window).width() / 4;
@@ -117,9 +118,9 @@
 
 	<form>
 		<p>Distance (km): </p>
-		<input class="distanceSlider" type="range" min="0" max="100">
+		<input class="distanceSlider" type="range" min="1" max="100" value="30">
 		<p>Miles per Gallon:</p>
-		<input class="mpgSlider" type="range" min="0" max="100">
+		<input class="mpgSlider" type="range" min="1" max="100" value="20">
 	</form>
 
 	<canvas id="canvas" width="300" height="400" style="border:1% solid #c3c3c3;">
