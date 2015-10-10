@@ -3,19 +3,10 @@
 <head>
 
     <title>Lawson's Angels Page</title>
-  </head>
 
-  <body>
     <script src="jquery-1.11.3.min.js"></script>
     <script async defer
 	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuCLmAFESOmLJ0IRWBaXJ-GH_0Deh1t9k&callback=initMap"></script>
-    <script>
-
-        
-
-    </script>
-    <script src="testJSScript.js"></script>
-  </body>
 
 	<!-- Include meta tag to ensure proper rendering and touch zooming -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,7 +36,7 @@
 		return (d / mpg) * 19.64;
 	}
 
-    function callback(response, status)
+    function resolveGoogleRespons(response, status)
     {
 		  if (status == google.maps.DistanceMatrixStatus.OK)
 		  {
@@ -57,13 +48,8 @@
 		  }
       }
 
-	$(document).ready(function(){
-		$(".distanceSlider").change(setEmissionsEvent);
-		$(".mpgSlider").change(setEmissionsEvent);
-		setEmissionsEvent();
-		var startLocation = window.prompt("Start Location", "8320 Tomlinson Ave Bethesda, MD 20817");
-		var destination = window.prompt("Destination", "7515 Colshire Drive Mc Lean, VA 22102");
-
+	function getDistance(start, destination, callback)
+	{
 		// If we don't use new here, service is undefined, and that's not good.
 		var service = new google.maps.DistanceMatrixService();
 		service.getDistanceMatrix(
@@ -75,6 +61,14 @@
 				'avoidHighways': false,
 				'avoidTolls': false
 			}, callback);
+	}
+
+	$(document).ready(function(){
+		$(".distanceSlider").change(setEmissionsEvent);
+		$(".mpgSlider").change(setEmissionsEvent);
+		setEmissionsEvent();
+		var startLocation = window.prompt("Start Location", "8320 Tomlinson Ave Bethesda, MD 20817");
+		var destination = window.prompt("Destination", "7515 Colshire Drive Mc Lean, VA 22102");
 
 
         $("#canvasDraw").click(function(){
@@ -117,7 +111,7 @@
 	<p id="emissions">0 lbs of CO2</p>
 
 	<p>Distance (km): </p>
-	<input class="distanceSlider" type="range" min="1" max="100000" value="30">
+	<input class="distanceSlider" type="range" min="1" max="100" value="30">
 	<p>Miles per Gallon:</p>
 	<input class="mpgSlider" type="range" min="1" max="100" value="20">
 
